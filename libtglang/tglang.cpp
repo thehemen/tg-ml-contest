@@ -31,6 +31,7 @@ string remove_comments(string source_code)
 {
     vector<pair<string, string>> signs =
     {
+        pair<string, string>("\"\"\"", "\"\"\""),
         pair<string, string>("\\/\\*", "\\*\\/"),
         pair<string, string>("<!--", "-->"),
         pair<string, string>("\\/\\/", "\n"),
@@ -40,7 +41,7 @@ string remove_comments(string source_code)
 
     for(const auto& [first, second]: signs)
     {
-        source_code = replace_text(source_code, first, second, "");
+        source_code = replace_text(source_code, first, second, " comment ");
     }
 
     return source_code;
@@ -58,6 +59,7 @@ string tokenize(string source_code)
         stream << word << " ";
     }
 
+    stream << endl;
     string clean_code = stream.str();
     return clean_code;
 }
@@ -86,14 +88,7 @@ enum TglangLanguage tglang_detect_programming_language(const char *text)
     }
 
     string source_code(text, text + strlen(text));
-
-    if(!any_of(source_code.begin(), source_code.end(), ::ispunct))
-    {
-        return language;
-    }
-
-    source_code = replace_text(source_code, "\"\"\"", "\"\"\"", "");
-    source_code = replace_text(source_code, "\"", "\"", "strv");
+    source_code = replace_text(source_code, "\"", "\"", " text ");
     source_code = remove_comments(source_code);
     string clean_code = tokenize(source_code);
 
