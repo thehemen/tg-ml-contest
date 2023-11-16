@@ -84,9 +84,7 @@ cmake --build .
 |Language Detection|50.3|
 |Average Time|190ms per sample|
 
-The "code/other detection" score is low because the initial StackOverflow user questions didn't contain code samples as removed.
-
-Now, this issue is fixed.
+The "code/other detection" score is low because the StackOverflow user questions differ from the real Telegram posts by its length and content.
 
 Hope, my project may be useful to you.
 
